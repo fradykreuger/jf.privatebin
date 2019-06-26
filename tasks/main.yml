@@ -1,0 +1,21 @@
+---
+
+- name: jf.privatebin | main | unarchive tar
+  unarchive:
+    src: https://github.com/PrivateBin/PrivateBin/archive/1.2.1.tar.gz
+    dest: /usr/src
+    remote_src: true
+
+- name: jf.privatebin | main | move package to html
+  copy:
+    src: /usr/src/PrivateBin-1.2.1/
+    dest: /usr/local/openresty/nginx/html
+    remote_src: true
+
+- name: jf.privatebin | main | change ownership
+  file:
+    path: /usr/local/openresty/nginx/html
+    state: directory
+    recurse: yes
+    owner: www-data
+    group: nginx
